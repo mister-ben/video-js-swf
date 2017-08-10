@@ -495,8 +495,12 @@ package com.videojs.providers{
                 default:
 
                     if(e.info.level == "error"){
-                        _model.broadcastErrorEventExternally(e.info.code);
-                        _model.broadcastErrorEventExternally(e.info.description);
+                        if (e.info.description == "Method not found (FCSubscribe).") {
+                            trace("Server does not implement FCSubscribe");
+                        } else {
+                            _model.broadcastErrorEventExternally(e.info.code);
+                            _model.broadcastErrorEventExternally(e.info.description);
+                        }
                     }
 
                     break;
