@@ -481,7 +481,9 @@ package com.videojs.providers{
             switch(e.info.code){
                 case "NetConnection.Connect.Success":
                     _model.broadcastEventExternally(ExternalEventName.ON_RTMP_CONNECT_SUCCESS);
-                    _nc.call("FCSubscribe", null, _src.streamURL); // try to subscribe
+                    if (_src.rtmpSubscribe !== false) {
+                      _nc.call("FCSubscribe", null, _src.streamURL); // try to subscribe
+                    }
                     initNetStream();
                     break;
                 case "NetConnection.Connect.Failed":
@@ -493,10 +495,9 @@ package com.videojs.providers{
                     }
                     break;
                 default:
-
                     if(e.info.level == "error"){
                         if (e.info.description == "Method not found (FCSubscribe).") {
-                            trace("Server does not implement FCSubscribe");
+                            ExternalInterface.call("videojs.log.warn", "RTMP server does not support FCSubscribe");
                         } else {
                             _model.broadcastErrorEventExternally(e.info.code);
                             _model.broadcastErrorEventExternally(e.info.description);

@@ -156,6 +156,10 @@ package{
               if(loaderInfo.parameters.rtmpStream != undefined && loaderInfo.parameters.rtmpStream != ""){
                 _app.model.rtmpStream = loaderInfo.parameters.rtmpStream;
               }
+
+              if(loaderInfo.parameters.rtmpSubscribe != undefined && loaderInfo.parameters.rtmpSubscribe != ""){
+                _app.model.rtmpSubscribe = _app.model.humanToBoolean(loaderInfo.parameters.rtmpSubscribe);
+              }
             }
 
             // Hard coding this in for now until we can come up with a better solution for 5.0 to avoid XSS.
@@ -316,6 +320,9 @@ package{
                 case "getVideoPlaybackQuality":
                     return _app.model.videoPlaybackQuality;
                     break;
+                case "rtmpSubscribe":
+                    return _app.model.rtmpSubscribe;
+                    break;
             }
             return null;
         }
@@ -366,6 +373,9 @@ package{
                 case "volume":
                     _app.model.volume = Number(pValue);
                     break;
+                case "rtmpSubscribe":
+                      _app.model.rtmpSubscribe = _app.model.humanToBoolean(pValue);
+                      break;
                 case "rtmpConnection":
                     _app.model.rtmpConnectionURL = String(pValue);
                     break;

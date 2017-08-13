@@ -41,6 +41,7 @@ package com.videojs{
         private var _preload:String = "auto";
         private var _loop:Boolean = false;
         private var _src:String = "";
+        private var _rtmpSubscribe:Boolean = true;
         private var _rtmpConnectionURL:String = "";
         private var _rtmpStream:String = "";
 
@@ -172,6 +173,13 @@ package com.videojs{
             SoundMixer.soundTransform = _masterVolume;
             _lastSetVolume = _volume;
             broadcastEventExternally(ExternalEventName.ON_VOLUME_CHANGE, _volume);
+        }
+
+        public function get rtmpSubscribe():Boolean{
+            return _rtmpSubscribe;
+        }
+        public function set rtmpSubscribe(pSubscribe:Boolean):void {
+            _rtmpSubscribe = pSubscribe;
         }
 
         public function get duration():Number{
